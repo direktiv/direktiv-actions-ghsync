@@ -1,0 +1,24 @@
+name: Sync Test
+on:
+  workflow_dispatch:
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: test sync
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: jj
+        run : |
+          git reflog
+          git status
+          git rev-parse HEAD
+      - name: execute
+        id: execute
+        with:
+          server: playground.direktiv.io
+          namespace: jens
+          sync: tests/wf.yaml
+          token: ${{ secrets.DIREKTIV_TOKEN }}
+        uses: jensg-st/direktiv-actions-ghsync@test
