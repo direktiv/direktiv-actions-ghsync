@@ -1,0 +1,6 @@
+id: test
+description: "my description"
+states:
+  - id: helloworld
+    type: noop
+    transform: '{ result: "Hello world!" }'

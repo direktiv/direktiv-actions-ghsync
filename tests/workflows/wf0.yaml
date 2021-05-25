@@ -1,0 +1,6 @@
+id: workflow2
+description: ""
+states:
+  - id: helloworld
+    type: noop
+    transform: '{ result: "Hello world!" }'

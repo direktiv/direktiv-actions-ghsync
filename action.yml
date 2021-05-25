@@ -1,0 +1,39 @@
+name: 'Sync Direktiv Workflows'
+description: 'Syncs workflows from github to direktiv'
+branding:
+  icon: 'play-circle'
+  color: 'blue'
+inputs:
+  server:
+    description: 'direktiv server ip or name'
+    required: true
+  protocol:
+    description: 'http or https'
+    required: false
+    default: 'https'
+  namespace:
+    description: 'namespace to sync to'
+    required: true
+  sync:
+    description: 'folder/file to sync'
+    required: true
+  force:
+    description: 'force full sync'
+    required: false
+  token:
+    description: 'access token for the direktiv server'
+    required: false
+    default: ''
+outputs:
+  instance-id:
+    description: 'instance-id of the workflow'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.server }}
+    - ${{ inputs.workflow }}
+    - ${{ inputs.token }}
+    - ${{ inputs.namespace }}
+    - ${{ inputs.sync }}
+    - ${{ inputs.force }}
