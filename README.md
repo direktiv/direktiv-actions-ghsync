@@ -1,6 +1,16 @@
 # direktiv-actions
 
-This action executes workflow on direktiv automation servers.
+This action synchronises workflow folders or single workflow iwth direktiv.
+
+Because this action needs the history of workflows it needs to checkout the repository
+where it is being used with `fetch-depth: 0`, e.g.:
+
+```
+steps:
+  - uses: actions/checkout@v2
+    with:
+      fetch-depth: 0
+```
 
 ## Usage
 
@@ -9,55 +19,36 @@ See [action.yaml](action.yaml)
 ### Basic
 
 ```yaml
-steps:
-  - name: execute
-    id: execute
-    with:
-      server: playground.direktiv.io
-      workflow: mynamespace/myworkflow
-    uses: vorteil/direktiv-actions-ghexec@v1
+- name: execute
+  id: execute
+  with:
+    server: my-direktiv-server
+    namespace: my-namespace
+    sync: tests/wf.yaml
+  uses: vorteil/direktiv-actions-ghsync@test
 ```
 
-### Waiting for workflow result
+
+### Folder
 
 ```yaml
-steps:
-  - name: execute
-    id: execute
-    with:
-      wait: false
-      server: playground.direktiv.io
-      workflow: mynamespace/myworkflow
-    uses: vorteil/direktiv-actions-ghexec@v1
-```
-
-### Posting data to workflow
-
-```yaml
-steps:
-  - name: execute
-    id: execute
-    with:
-      wait: false
-      server: playground.direktiv.io
-      workflow: mynamespace/myworkflow
-      data: |
-        {
-          "data": "mydata"
-        }
-    uses: vorteil/direktiv-actions-ghexec@v1
+- name: execute
+  id: execute
+  with:
+    server: my-direktiv-server
+    names: project/workflows
+  uses: vorteil/direktiv-actions-ghsync@test
 ```
 
 ### Using authentication token
 
 ```yaml
-steps:
-  - name: execute
-    id: execute
-    with:
-      wait: false
-      server: playground.direktiv.io
-      workflow: mynamespace/myworkflow
-      token: ${{ secrets.DIREKTIV_TOKEN }}
-    uses: vorteil/direktiv-actions-ghexec@v1
+- name: execute
+  id: execute
+  with:
+    server: my-direktiv-server
+    namespace: my-namespace
+    sync: tests/wf.yaml
+    token: ${{ secrets.DIREKTIV_TOKEN }}
+  uses: vorteil/direktiv-actions-ghsync@test
 ```

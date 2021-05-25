@@ -9,11 +9,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: jj
-        run : |
-          git reflog
-          git status
-          git rev-parse HEAD
       - name: execute
         id: execute
         with:
@@ -21,4 +16,4 @@ jobs:
           namespace: jens
           sync: tests/wf.yaml
           token: ${{ secrets.DIREKTIV_TOKEN }}
-        uses: jensg-st/direktiv-actions-ghsync@test
+        uses: vorteil/direktiv-actions-ghsync@test
